@@ -1,101 +1,102 @@
+"use client";
 import Image from "next/image";
+import Logo from "./assets/images/logo.svg";
+import { Clapperboard, House, Tickets } from "lucide-react";
+import { useEffect } from "react";
+import LanguageModal from "../components/LanguageModal";
 
-export default function Home() {
+const Home = () => {
+  const toggleModal = (modalId: string) => {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.classList.toggle("hidden");
+    }
+  };
+
+  useEffect(() => {
+    const hideButtons = document.querySelectorAll("[data-modal-hide]");
+    hideButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = button.getAttribute("data-modal-hide");
+        // const modal = document.getElementById(target);
+        // if (modal) {
+        //   modal.classList.add("hidden");
+        // }
+      });
+    });
+  }, []);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
+    <>
+      <header className="md:px-3 lg:px-5 flex items-center justify-between h-14 sticky top-0 z-[999] w-full">
+        <Image src={Logo} alt="logo" width={153} height={31} />
+        <ul className="flex items-center gap-x-2">
+          <li className="px-3">
+            <a
+              href="#!"
+              className="text-white hover:text-[#FCC434] capitalize text-sm flex items-center gap-x-1 transition delay-150 duration-300 ease-in-out"
+            >
+              <House /> home
+            </a>
           </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+          <li className="px-3">
+            <a
+              href="#!"
+              className="text-white hover:text-[#FCC434] capitalize text-sm flex items-center gap-x-1 transition delay-150 duration-300 ease-in-out"
+            >
+              <Tickets /> tickets
+            </a>
+          </li>
+          <li className="px-3">
+            <a
+              href="#!"
+              className="text-white hover:text-[#FCC434] capitalize text-sm flex items-center gap-x-1 transition delay-150 duration-300 ease-in-out"
+            >
+              <Clapperboard /> movies
+            </a>
+          </li>
+        </ul>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        <div className="flex items-center gap-x-5">
+          <button
+            type="button"
+            className="flex items-center gap-x-2 text-xs leading-[18px] h-9 rounded-full border px-3"
+            onClick={() => toggleModal("language-modal")}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            English
+          </button>
+          <div className="w-full max-w-sm min-w-[180px]">
+            <div className="relative">
+              <select className="w-full bg-transparent placeholder:text-white-400 text-white-700 text-sm border border-slate-200 rounded pl-10 pr-8 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer">
+                <option value="brazil">Brazil</option>
+                <option value="bucharest">Bucharest</option>
+                <option value="london">London</option>
+                <option value="washington">Washington</option>
+              </select>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.2"
+                stroke="currentColor"
+                className="h-5 w-5 ml-1 absolute top-2.5 right-2.5 text-white-700"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+                />
+              </svg>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </header>
+
+      <section></section>
+
+      <LanguageModal />
+    </>
   );
-}
+};
+
+export default Home;
